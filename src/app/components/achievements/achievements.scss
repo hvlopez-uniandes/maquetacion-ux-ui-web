@@ -33,11 +33,39 @@
   margin-bottom: 32px;
 }
 
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 .section-title {
   font-size: 1.5rem;
   font-weight: 600;
   color: #333;
-  margin-bottom: 20px;
+  margin: 0;
+}
+
+.recreate-btn {
+  background-color: #ff9800 !important;
+  color: white !important;
+  min-width: 200px;
+  height: 40px;
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  mat-icon {
+    margin-right: 6px;
+    font-size: 1.1rem;
+  }
+
+  &:disabled {
+    background-color: #ccc !important;
+    color: #666 !important;
+  }
 }
 
 .achievements-list {
@@ -126,6 +154,16 @@
 
   .page-title {
     font-size: 2rem;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .recreate-btn {
+    min-width: auto;
+    width: 100%;
   }
 
   .achievement-item {

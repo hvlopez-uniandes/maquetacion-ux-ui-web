@@ -8,7 +8,17 @@
     </p>
 
     <div class="achievements-section">
-      <h2 class="section-title">Alarmas existentes</h2>
+      <div class="section-header">
+        <h2 class="section-title">Alarmas existentes</h2>
+        <button mat-raised-button
+                color="accent"
+                class="recreate-btn"
+                (click)="recreateSampleData()"
+                [disabled]="isLoading">
+          <mat-icon>refresh</mat-icon>
+          Recrear Datos de Muestra
+        </button>
+      </div>
 
       <div class="achievements-list" *ngIf="!isLoading">
         <div class="achievement-item" *ngFor="let session of sessions; trackBy: trackBySessionId">

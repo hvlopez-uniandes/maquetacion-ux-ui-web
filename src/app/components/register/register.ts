@@ -35,10 +35,10 @@ export class RegisterComponent {
     private snackBar: MatSnackBar
   ) {
     this.registerForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
+      fullName: ['test', [Validators.required, Validators.minLength(2)]],
+      email: ['test@gmail.com', [Validators.required, Validators.email]],
+      password: ['123456', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['123456', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
   }
 
@@ -53,6 +53,9 @@ export class RegisterComponent {
   }
 
   async onSubmit() {
+    // Mark all fields as touched to show validation errors
+    this.registerForm.markAllAsTouched();
+
     if (this.registerForm.valid) {
       this.isLoading = true;
       const { fullName, email, password } = this.registerForm.value;
@@ -68,8 +71,41 @@ export class RegisterComponent {
 
       this.isLoading = false;
     } else {
-      this.snackBar.open('Por favor, completa todos los campos correctamente', 'Cerrar', { duration: 3000 });
+      // Get specific validation errors
+      const errors = this.getValidationErrors();
+      this.snackBar.open(errors, 'Cerrar', { duration: 5000 });
     }
+  }
+
+  private getValidationErrors(): string {
+    const errors: string[] = [];
+
+    if (this.registerForm.get('fullName')?.hasError('required')) {
+      errors.push('El nombre completo es requerido');
+    }
+    if (this.registerForm.get('fullName')?.hasError('minlength')) {
+      errors.push('El nombre debe tener al menos 2 caracteres');
+    }
+    if (this.registerForm.get('email')?.hasError('required')) {
+      errors.push('El correo electrónico es requerido');
+    }
+    if (this.registerForm.get('email')?.hasError('email')) {
+      errors.push('Ingresa un correo electrónico válido');
+    }
+    if (this.registerForm.get('password')?.hasError('required')) {
+      errors.push('La contraseña es requerida');
+    }
+    if (this.registerForm.get('password')?.hasError('minlength')) {
+      errors.push('La contraseña debe tener al menos 6 caracteres');
+    }
+    if (this.registerForm.get('confirmPassword')?.hasError('required')) {
+      errors.push('La confirmación de contraseña es requerida');
+    }
+    if (this.registerForm.hasError('passwordMismatch')) {
+      errors.push('Las contraseñas no coinciden');
+    }
+
+    return errors.length > 0 ? errors.join('. ') : 'Por favor, completa todos los campos correctamente';
   }
 
   goToLogin() {

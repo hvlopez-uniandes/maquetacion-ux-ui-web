@@ -94,12 +94,14 @@ export class AlarmModalComponent implements OnInit {
           });
           this.successMessage = '¡Felicidades, su alarma ha sido creada con éxito!';
         } else if (this.data.mode === 'edit' && this.data.alarm) {
-          await this.databaseService.updateAlarm(this.data.alarm.id!, {
+          console.log('Updating alarm:', this.data.alarm.id, formData);
+          const updatedAlarm = await this.databaseService.updateAlarm(this.data.alarm.id!, {
             name: formData.name,
             uptime: formData.uptime,
             downtime: formData.downtime,
             repetitions: formData.repetitions
           });
+          console.log('Alarm updated successfully:', updatedAlarm);
           this.successMessage = '¡Felicidades, su alarma ha sido modificada con éxito!';
         }
 

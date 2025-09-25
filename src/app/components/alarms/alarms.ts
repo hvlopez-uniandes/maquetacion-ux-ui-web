@@ -48,7 +48,9 @@ export class AlarmsComponent implements OnInit {
 
     try {
       this.isLoading = true;
+      console.log('Loading alarms for user:', this.currentUser.id);
       this.alarms = await this.databaseService.getAlarmsByUser(this.currentUser.id!);
+      console.log('Loaded alarms:', this.alarms);
     } catch (error) {
       console.error('Error loading alarms:', error);
       this.snackBar.open('Error al cargar las alarmas', 'Cerrar', { duration: 3000 });
