@@ -1,0 +1,55 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-content>
+      <h1 class="title">Bienvenido</h1>
+      <p class="description">
+        Controla tus tiempos con nuestras alarmas Pomodoro y mejora tu productividad día a día.
+      </p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput
+                 type="email"
+                 formControlName="email"
+                 placeholder="Ingresa tu email"
+                 required>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+            El correo electrónico es requerido
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+            Ingresa un correo electrónico válido
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput
+                 type="password"
+                 formControlName="password"
+                 placeholder="Ingresa tu contraseña"
+                 required>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            La contraseña es requerida
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+            La contraseña debe tener al menos 6 caracteres
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button
+                color="primary"
+                type="submit"
+                class="login-button"
+                [disabled]="isLoading">
+          {{ isLoading ? 'Ingresando...' : 'Ingresar' }}
+        </button>
+      </form>
+
+      <div class="register-link">
+        <span>¿No tienes cuenta? </span>
+        <a (click)="goToRegister()" class="link">Regístrate aquí</a>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

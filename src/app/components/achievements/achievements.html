@@ -1,0 +1,42 @@
+<div class="achievements-container">
+  <div class="content-wrapper">
+    <h1 class="page-title">Mis logros</h1>
+
+    <p class="description">
+      Acá podrás ver todas las victorias que has tenido hasta el momento.
+      Si deseas ver más detalle, siéntete libre de dar click en "Ver más".
+    </p>
+
+    <div class="achievements-section">
+      <h2 class="section-title">Alarmas existentes</h2>
+
+      <div class="achievements-list" *ngIf="!isLoading">
+        <div class="achievement-item" *ngFor="let session of sessions; trackBy: trackBySessionId">
+          <div class="achievement-info">
+            <h3 class="achievement-name">Pomodoro {{ session.alarmId }} x {{ Math.ceil(session.totalDuration / 30) }}</h3>
+            <p class="achievement-date">
+              Completado el: {{ session.completedAt | date:'dd/MM/yyyy' }}
+            </p>
+          </div>
+          <div class="achievement-actions">
+            <button mat-raised-button
+                    color="primary"
+                    class="action-btn view-btn"
+                    (click)="openSessionHistory(session)">
+              <mat-icon>visibility</mat-icon>
+              Ver más
+            </button>
+          </div>
+        </div>
+
+        <div class="no-achievements" *ngIf="sessions.length === 0">
+          <p>No tienes logros aún. ¡Comienza a usar las alarmas Pomodoro para ver tus logros aquí!</p>
+        </div>
+      </div>
+
+      <div class="loading" *ngIf="isLoading">
+        <p>Cargando logros...</p>
+      </div>
+    </div>
+  </div>
+</div>

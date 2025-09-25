@@ -1,0 +1,29 @@
+<div class="main-layout">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h2>Mi App</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-link">
+        <mat-icon>person</mat-icon>
+        Mis Datos
+      </a>
+      <a routerLink="/alarms" routerLinkActive="active" class="nav-link">
+        <mat-icon>alarm</mat-icon>
+        Mis Alarmas
+      </a>
+      <a routerLink="/achievements" routerLinkActive="active" class="nav-link">
+        <mat-icon>emoji_events</mat-icon>
+        Mis Logros
+      </a>
+      <button class="nav-link logout-btn" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Cerrar Sesión
+      </button>
+    </nav>
+  </div>
+
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="alarms-container">
+  <div class="content-wrapper">
+    <h1 class="page-title">Mis Alarmas Pomodoro</h1>
+
+    <p class="description">
+      Las alarmas Pomodoro te ayudan a organizar tu tiempo en intervalos de trabajo y descanso.
+      Cada alarma tiene un <strong>uptime</strong> (tiempo de trabajo) y un <strong>downtime</strong>
+      (tiempo de descanso), con la cantidad de repeticiones que prefieras.
+    </p>
+
+    <div class="alarms-section">
+      <h2 class="section-title">Alarmas existentes</h2>
+
+      <div class="alarms-list" *ngIf="!isLoading">
+        <div class="alarm-item" *ngFor="let alarm of alarms; trackBy: trackByAlarmId">
+          <div class="alarm-info">
+            <h3 class="alarm-name">{{ alarm.name }}</h3>
+            <p class="alarm-details">
+              Uptime: {{ alarm.uptime }} min |
+              Downtime: {{ alarm.downtime }} min |
+              Repeticiones: {{ alarm.repetitions }}
+            </p>
+          </div>
+          <div class="alarm-actions">
+            <button mat-raised-button
+                    color="primary"
+                    class="action-btn play-btn"
+                    (click)="startAlarm(alarm)">
+              <mat-icon>play_arrow</mat-icon>
+              Play
+            </button>
+            <button mat-raised-button
+                    color="accent"
+                    class="action-btn edit-btn"
+                    (click)="openEditAlarmDialog(alarm)">
+              <mat-icon>edit</mat-icon>
+              Editar
+            </button>
+            <button mat-raised-button
+                    color="warn"
+                    class="action-btn delete-btn"
+                    (click)="deleteAlarm(alarm)">
+              <mat-icon>delete</mat-icon>
+              Eliminar
+            </button>
+          </div>
+        </div>
+
+        <div class="no-alarms" *ngIf="alarms.length === 0">
+          <p>No tienes alarmas creadas aún. ¡Crea tu primera alarma Pomodoro!</p>
+        </div>
+      </div>
+
+      <div class="loading" *ngIf="isLoading">
+        <p>Cargando alarmas...</p>
+      </div>
+    </div>
+
+    <button mat-raised-button
+            color="primary"
+            class="create-alarm-btn"
+            (click)="openCreateAlarmDialog()">
+      <mat-icon>add</mat-icon>
+      Crear Alarma
+    </button>
+  </div>
+</div>

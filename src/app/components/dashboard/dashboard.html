@@ -1,0 +1,38 @@
+<div class="dashboard-container">
+  <div class="content">
+    <mat-card class="welcome-card">
+      <mat-card-content>
+        <h2>¡Bienvenido a tu aplicación Pomodoro!</h2>
+        <p>Aquí podrás gestionar tus sesiones de trabajo y mejorar tu productividad.</p>
+        <p>Usuario: {{ currentUser?.email }}</p>
+        <p>Registrado el: {{ currentUser?.createdAt | date:'medium' }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="features-grid">
+      <mat-card class="feature-card">
+        <mat-card-content>
+          <mat-icon class="feature-icon">timer</mat-icon>
+          <h3>Timer Pomodoro</h3>
+          <p>Configura sesiones de trabajo de 25 minutos con descansos cortos.</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="feature-card">
+        <mat-card-content>
+          <mat-icon class="feature-icon">analytics</mat-icon>
+          <h3>Estadísticas</h3>
+          <p>Revisa tu progreso y productividad a lo largo del tiempo.</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="feature-card">
+        <mat-card-content>
+          <mat-icon class="feature-icon">settings</mat-icon>
+          <h3>Configuración</h3>
+          <p>Personaliza los tiempos de trabajo y descanso según tus necesidades.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
