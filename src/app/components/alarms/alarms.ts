@@ -7,6 +7,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { DatabaseService, PomodoroAlarm, User } from '../../services/database.service';
 import { AuthService } from '../../services/auth.service';
+import { AlarmModalComponent, AlarmModalData } from '../alarm-modal/alarm-modal';
+import { PomodoroTimerComponent, TimerModalData } from '../pomodoro-timer/pomodoro-timer';
 
 @Component({
   selector: 'app-alarms',
@@ -56,13 +58,40 @@ export class AlarmsComponent implements OnInit {
   }
 
   openCreateAlarmDialog() {
-    // TODO: Implement create alarm dialog
-    this.snackBar.open('Funcionalidad de crear alarma próximamente', 'Cerrar', { duration: 3000 });
+    const dialogData: AlarmModalData = {
+      mode: 'create'
+    };
+
+    const dialogRef = this.dialog.open(AlarmModalComponent, {
+      width: '500px',
+      data: dialogData,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadAlarms();
+      }
+    });
   }
 
   openEditAlarmDialog(alarm: PomodoroAlarm) {
-    // TODO: Implement edit alarm dialog
-    this.snackBar.open('Funcionalidad de editar alarma próximamente', 'Cerrar', { duration: 3000 });
+    const dialogData: AlarmModalData = {
+      mode: 'edit',
+      alarm: alarm
+    };
+
+    const dialogRef = this.dialog.open(AlarmModalComponent, {
+      width: '500px',
+      data: dialogData,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadAlarms();
+      }
+    });
   }
 
   async deleteAlarm(alarm: PomodoroAlarm) {
@@ -79,8 +108,22 @@ export class AlarmsComponent implements OnInit {
   }
 
   startAlarm(alarm: PomodoroAlarm) {
-    // TODO: Implement start alarm functionality
-    this.snackBar.open('Funcionalidad de iniciar alarma próximamente', 'Cerrar', { duration: 3000 });
+    const dialogData: TimerModalData = {
+      alarm: alarm
+    };
+
+    const dialogRef = this.dialog.open(PomodoroTimerComponent, {
+      width: '500px',
+      data: dialogData,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Timer completed successfully, refresh achievements if needed
+        this.snackBar.open('¡Sesión completada! Revisa tus logros.', 'Cerrar', { duration: 3000 });
+      }
+    });
   }
 
   trackByAlarmId(index: number, alarm: PomodoroAlarm): number {

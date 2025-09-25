@@ -1,0 +1,110 @@
+<div class="alarm-modal">
+  <div class="modal-header">
+    <h2 class="modal-title">{{ title }}</h2>
+    <button mat-icon-button class="close-button" (click)="closeDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="modal-content">
+    <form [formGroup]="alarmForm" (ngSubmit)="onSubmit()" class="alarm-form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nombre de la alarma</mat-label>
+        <input matInput
+               type="text"
+               formControlName="name"
+               placeholder="Ingresa el nombre de la alarma"
+               required>
+        <mat-error *ngIf="alarmForm.get('name')?.hasError('required')">
+          El nombre de la alarma es requerido
+        </mat-error>
+        <mat-error *ngIf="alarmForm.get('name')?.hasError('minlength')">
+          El nombre debe tener al menos 2 caracteres
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Uptime (minutos)</mat-label>
+        <input matInput
+               type="number"
+               formControlName="uptime"
+               placeholder="25"
+               min="1"
+               max="120"
+               required>
+        <mat-error *ngIf="alarmForm.get('uptime')?.hasError('required')">
+          El tiempo de trabajo es requerido
+        </mat-error>
+        <mat-error *ngIf="alarmForm.get('uptime')?.hasError('min')">
+          El tiempo mínimo es 1 minuto
+        </mat-error>
+        <mat-error *ngIf="alarmForm.get('uptime')?.hasError('max')">
+          El tiempo máximo es 120 minutos
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Downtime (minutos)</mat-label>
+        <input matInput
+               type="number"
+               formControlName="downtime"
+               placeholder="5"
+               min="1"
+               max="60"
+               required>
+        <mat-error *ngIf="alarmForm.get('downtime')?.hasError('required')">
+          El tiempo de descanso es requerido
+        </mat-error>
+        <mat-error *ngIf="alarmForm.get('downtime')?.hasError('min')">
+          El tiempo mínimo es 1 minuto
+        </mat-error>
+        <mat-error *ngIf="alarmForm.get('downtime')?.hasError('max')">
+          El tiempo máximo es 60 minutos
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Repeticiones</mat-label>
+        <input matInput
+               type="number"
+               formControlName="repetitions"
+               placeholder="4"
+               min="1"
+               max="20"
+               required>
+        <mat-error *ngIf="alarmForm.get('repetitions')?.hasError('required')">
+          El número de repeticiones es requerido
+        </mat-error>
+        <mat-error *ngIf="alarmForm.get('repetitions')?.hasError('min')">
+          El mínimo es 1 repetición
+        </mat-error>
+        <mat-error *ngIf="alarmForm.get('repetitions')?.hasError('max')">
+          El máximo es 20 repeticiones
+        </mat-error>
+      </mat-form-field>
+
+      <div class="success-message" *ngIf="successMessage">
+        <div class="success-box">
+          {{ successMessage }}
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button mat-raised-button
+                type="button"
+                class="cancel-btn"
+                (click)="onCancel()"
+                [disabled]="isSubmitting">
+          Cancelar
+        </button>
+        <button mat-raised-button
+                color="primary"
+                type="submit"
+                class="submit-btn"
+                [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Guardando...' : submitButtonText }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

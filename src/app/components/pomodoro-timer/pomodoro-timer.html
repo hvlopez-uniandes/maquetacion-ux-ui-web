@@ -1,0 +1,31 @@
+<div class="timer-modal">
+  <div class="modal-header">
+    <h2 class="modal-title">{{ title }}</h2>
+    <button mat-icon-button class="close-button" (click)="closeDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="modal-content">
+    <div class="instruction-text">
+      {{ instruction }}
+    </div>
+
+    <div class="timer-display">
+      <div class="timer-circle">
+        <div class="timer-text">{{ formattedTime }}</div>
+      </div>
+    </div>
+
+    <div class="timer-actions">
+      <button mat-raised-button
+              color="primary"
+              class="continue-btn"
+              (click)="continueTimer()"
+              [disabled]="!isPaused && isRunning">
+        <mat-icon>play_arrow</mat-icon>
+        Continuar
+      </button>
+    </div>
+  </div>
+</div>

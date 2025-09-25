@@ -1,0 +1,49 @@
+<div class="history-modal">
+  <div class="modal-header">
+    <h2 class="modal-title">{{ title }}</h2>
+    <button mat-icon-button class="close-button" (click)="closeDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="modal-content">
+    <div class="description-text">
+      {{ description }}
+    </div>
+
+    <div class="sessions-section">
+      <h3 class="section-title">Alarmas existentes</h3>
+
+      <div class="sessions-list" *ngIf="!isLoading">
+        <div class="session-item" *ngFor="let session of sessions; trackBy: trackBySessionId">
+          <div class="session-info">
+            <h4 class="session-name">{{ data.alarm.name }}</h4>
+            <p class="session-date">{{ session.completedAt | date:'dd/MM/yyyy' }}</p>
+            <p class="session-details">
+              Uptime: {{ data.alarm.uptime }} min |
+              Downtime: {{ data.alarm.downtime }} min |
+              Repeticiones: {{ data.alarm.repetitions }}
+            </p>
+          </div>
+        </div>
+
+        <div class="no-sessions" *ngIf="sessions.length === 0">
+          <p>No hay sesiones completadas para esta alarma aún.</p>
+        </div>
+      </div>
+
+      <div class="loading" *ngIf="isLoading">
+        <p>Cargando historial...</p>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button mat-raised-button
+              class="back-btn"
+              (click)="closeDialog()">
+        <mat-icon>arrow_back</mat-icon>
+        Regresar
+      </button>
+    </div>
+  </div>
+</div>
